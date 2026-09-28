@@ -1,0 +1,2875 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Tú + Yo</title>
+
+<style>
+
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background: #000005;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: white;
+}
+
+body {
+    position: relative;
+}
+
+
+/* =====================================================
+   UNIVERSO
+===================================================== */
+
+.space {
+
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            #13000e 0%,
+            #08000d 30%,
+            #030006 65%,
+            #000000 100%
+        );
+}
+
+
+/* =====================================================
+   NUBE DE LA GALAXIA
+===================================================== */
+
+.milkyway {
+
+    position: absolute;
+
+    width: 180%;
+    height: 55%;
+
+    left: -40%;
+    top: 25%;
+
+    transform: rotate(-13deg);
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255,255,255,.10) 0%,
+            rgba(255,120,200,.08) 15%,
+            rgba(180,50,180,.05) 32%,
+            transparent 65%
+        );
+
+    filter: blur(18px);
+
+    opacity: .8;
+
+    animation:
+        galaxyDrift 35s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+
+.milkyway::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 20% 0;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255,255,255,.12),
+            rgba(255,70,160,.08) 22%,
+            transparent 62%
+        );
+
+    filter: blur(25px);
+}
+
+
+.milkyway::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 100%;
+    height: 14%;
+
+    left: 0;
+    top: 43%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(0,0,0,.4) 25%,
+            rgba(0,0,0,.65) 50%,
+            rgba(0,0,0,.4) 75%,
+            transparent
+        );
+
+    filter: blur(12px);
+}
+
+
+@keyframes galaxyDrift {
+
+    from {
+        transform:
+            rotate(-13deg)
+            scale(1);
+    }
+
+    to {
+        transform:
+            rotate(-11deg)
+            scale(1.06);
+    }
+
+}
+
+
+/* =====================================================
+   ESTRELLAS DEL FONDO
+===================================================== */
+
+#stars {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 1;
+}
+
+
+/* =====================================================
+   GALAXIA DE PARTÍCULAS
+===================================================== */
+
+#galaxy {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 3;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   NEBULOSAS
+===================================================== */
+
+.nebula {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    filter: blur(55px);
+
+    pointer-events: none;
+
+    opacity: .5;
+
+    z-index: 2;
+}
+
+
+.nebula.one {
+
+    width: 300px;
+    height: 180px;
+
+    left: 5%;
+    top: 30%;
+
+    background:
+        rgba(110,20,130,.22);
+
+    transform:
+        rotate(25deg);
+}
+
+
+.nebula.two {
+
+    width: 350px;
+    height: 170px;
+
+    right: 0;
+    top: 48%;
+
+    background:
+        rgba(190,20,80,.16);
+
+    transform:
+        rotate(-20deg);
+}
+
+
+.nebula.three {
+
+    width: 280px;
+    height: 150px;
+
+    left: 30%;
+    bottom: 12%;
+
+    background:
+        rgba(50,20,140,.14);
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.title {
+
+    position: absolute;
+
+    top: 28px;
+
+    width: 100%;
+
+    text-align: center;
+
+    z-index: 20;
+
+    font-size: 21px;
+
+    font-weight: normal;
+
+    letter-spacing: 1px;
+
+    color:
+        rgba(255,240,248,.95);
+
+    text-shadow:
+        0 0 8px rgba(255,100,170,.8),
+        0 0 20px rgba(255,40,130,.45);
+}
+
+
+.subtitle {
+
+    position: absolute;
+
+    top: 60px;
+
+    width: 100%;
+
+    text-align: center;
+
+    z-index: 20;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    color:
+        rgba(255,255,255,.45);
+}
+
+
+/* =====================================================
+   ÓRBITAS ANTIGUAS
+===================================================== */
+
+.orbit {
+    display: none;
+}
+
+
+/* =====================================================
+   CENTRO
+===================================================== */
+
+.center {
+
+    position: absolute;
+
+    left: 50%;
+    top: 51%;
+
+    width: 120px;
+    height: 120px;
+
+    transform:
+        translate(-50%,-50%);
+
+    z-index: 40;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   CORAZÓN ANTIGUO OCULTO
+===================================================== */
+
+.center .heart {
+    opacity: 0;
+}
+
+
+/* =====================================================
+   PALABRAS
+===================================================== */
+
+.word {
+
+    position: absolute;
+
+    z-index: 50;
+
+    transform:
+        translate(-50%,-50%);
+
+    padding:
+        7px 12px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(8,0,15,.48);
+
+    border:
+        1px solid
+        rgba(255,120,160,.28);
+
+    backdrop-filter:
+        blur(5px);
+
+    -webkit-backdrop-filter:
+        blur(5px);
+
+    color:
+        rgba(255,235,242,.95);
+
+    font-size: 11px;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        .3s;
+
+    text-shadow:
+        0 0 8px
+        rgba(255,120,170,.4);
+
+    animation:
+        float 4s
+        ease-in-out
+        infinite;
+}
+
+
+.word:hover,
+.word:active {
+
+    background:
+        rgba(120,0,35,.6);
+
+    border-color:
+        rgba(255,150,180,.9);
+
+    box-shadow:
+        0 0 20px
+        rgba(255,40,90,.5);
+
+    transform:
+        translate(-50%,-50%)
+        scale(1.08);
+}
+
+
+@keyframes float {
+
+    0%,
+    100% {
+        margin-top: 0;
+    }
+
+    50% {
+        margin-top: -6px;
+    }
+
+}
+
+
+/* =====================================================
+   POSICIONES
+===================================================== */
+
+.w1 {
+    left: 50%;
+    top: 19%;
+}
+
+.w2 {
+    left: 77%;
+    top: 28%;
+}
+
+.w3 {
+    left: 87%;
+    top: 45%;
+}
+
+.w4 {
+    left: 80%;
+    top: 64%;
+}
+
+.w5 {
+    left: 64%;
+    top: 80%;
+}
+
+.w6 {
+    left: 38%;
+    top: 80%;
+}
+
+.w7 {
+    left: 20%;
+    top: 65%;
+}
+
+.w8 {
+    left: 13%;
+    top: 47%;
+}
+
+.w9 {
+    left: 22%;
+    top: 29%;
+}
+
+.w10 {
+    left: 36%;
+    top: 15%;
+}
+
+.w11 {
+    left: 67%;
+    top: 16%;
+}
+
+.w12 {
+    left: 90%;
+    top: 72%;
+}
+
+.w13 {
+    left: 9%;
+    top: 72%;
+}
+
+.w14 {
+    left: 50%;
+    top: 91%;
+}
+
+
+/* =====================================================
+   TEXTO INFERIOR
+===================================================== */
+
+.hint {
+
+    position: absolute;
+
+    bottom: 15px;
+
+    width: 100%;
+
+    text-align: center;
+
+    z-index: 60;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    color:
+        rgba(255,255,255,.35);
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 22px;
+
+    background:
+        rgba(0,0,0,.76);
+
+    backdrop-filter:
+        blur(9px);
+
+    -webkit-backdrop-filter:
+        blur(9px);
+}
+
+
+.modal.show {
+    display: flex;
+}
+
+
+.modal-box {
+
+    width:
+        min(92vw,520px);
+
+    max-height: 82vh;
+
+    overflow-y: auto;
+
+    padding:
+        30px 25px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(35,2,20,.98),
+            rgba(7,0,13,.98)
+        );
+
+    border:
+        1px solid
+        rgba(255,100,140,.5);
+
+    box-shadow:
+        0 0 45px
+        rgba(255,0,70,.2);
+
+    animation:
+        modalIn .35s ease;
+}
+
+
+@keyframes modalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.87);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+.modal-title {
+
+    text-align: center;
+
+    font-size: 22px;
+
+    color:
+        #ffb6c8;
+
+    margin-bottom: 20px;
+
+    letter-spacing: 2px;
+}
+
+
+.modal-text {
+
+    white-space: pre-line;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    color:
+        rgba(255,245,248,.93);
+}
+
+
+.close {
+
+    display: block;
+
+    margin:
+        25px auto 0;
+
+    padding:
+        9px 22px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid
+        rgba(255,100,140,.5);
+
+    background:
+        rgba(100,0,30,.4);
+
+    color: white;
+
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   PANTALLA FINAL
+===================================================== */
+
+.final-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 150;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 25px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(110,0,35,.5),
+            rgba(0,0,0,.98) 70%
+        );
+}
+
+
+.final-screen.show {
+    display: flex;
+}
+
+
+.final-box {
+
+    max-width: 600px;
+
+    animation:
+        finalIn 1.2s ease;
+}
+
+
+@keyframes finalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.75);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+
+.final-heart {
+
+    font-size: 75px;
+
+    color:
+        #ff174c;
+
+    filter:
+        drop-shadow(
+            0 0 15px
+            rgba(255,0,60,.9)
+        );
+
+    animation:
+        finalBeat 1.5s infinite;
+}
+
+
+@keyframes finalBeat {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.13);
+
+    }
+
+}
+
+
+.final-title {
+
+    margin:
+        20px 0;
+
+    font-size: 30px;
+
+    letter-spacing: 5px;
+
+    color:
+        #ffb0c2;
+
+    text-shadow:
+        0 0 20px
+        rgba(255,50,100,.5);
+}
+
+
+.final-text {
+
+    font-size: 16px;
+
+    line-height: 1.9;
+
+    color:
+        rgba(255,245,248,.92);
+}
+
+
+.final-close {
+
+    margin-top: 25px;
+
+    padding:
+        10px 25px;
+
+    border:
+        1px solid
+        rgba(255,100,140,.5);
+
+    background:
+        transparent;
+
+    color: white;
+
+    border-radius: 20px;
+
+    font-family: inherit;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   AJUSTES PARA CELULAR
+===================================================== */
+
+@media (max-width: 500px) {
+
+    .title {
+
+        font-size: 19px;
+
+        top: 25px;
+    }
+
+
+    .subtitle {
+
+        top: 56px;
+
+        font-size: 8px;
+    }
+
+
+    .word {
+
+        font-size: 9px;
+
+        padding:
+            6px 9px;
+
+        letter-spacing:
+            .7px;
+    }
+
+
+    .hint {
+
+        bottom: 10px;
+
+        font-size: 8px;
+    }
+
+}
+
+
+/* =====================================================
+   PANTALLAS PEQUEÑAS
+===================================================== */
+
+@media (max-height: 700px) {
+
+    .word {
+
+        padding:
+            5px 8px;
+
+        font-size: 8px;
+    }
+
+
+    .title {
+
+        top: 18px;
+
+        font-size: 17px;
+    }
+
+
+    .subtitle {
+
+        top: 47px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="space">
+
+
+    <!-- ESTRELLAS DEL UNIVERSO -->
+
+    <canvas id="stars"></canvas>
+
+
+    <!-- GALAXIA DE PARTÍCULAS -->
+
+    <canvas id="galaxy"></canvas>
+
+
+    <!-- NUBE DE LA GALAXIA -->
+
+    <div class="milkyway"></div>
+
+
+    <!-- NEBULOSAS -->
+
+    <div class="nebula one"></div>
+
+    <div class="nebula two"></div>
+
+    <div class="nebula three"></div>
+
+
+    <!-- TÍTULO -->
+
+    <div class="title">
+        una pequeña galaxia para ti
+    </div>
+
+
+    <div class="subtitle">
+        toca cada palabra
+    </div>
+
+
+    <!-- ÓRBITAS -->
+
+    <div class="orbit one"></div>
+
+    <div class="orbit two"></div>
+
+    <div class="orbit three"></div>
+
+
+    <!-- CENTRO -->
+
+    <div
+        class="center"
+        onclick="showFinal()"
+    >
+
+        <div class="heart"></div>
+
+    </div>
+
+
+    <!-- PALABRAS -->
+
+    <div
+        class="word w1"
+        onclick="openMessage('casualidad')"
+    >
+        CASUALIDAD
+    </div>
+
+
+    <div
+        class="word w2"
+        onclick="openMessage('destino')"
+    >
+        DESTINO
+    </div>
+
+
+    <div
+        class="word w3"
+        onclick="openMessage('nervios')"
+    >
+        NERVIOS
+    </div>
+
+
+    <div
+        class="word w4"
+        onclick="openMessage('casual')"
+    >
+        CASUAL
+    </div>
+
+
+    <div
+        class="word w5"
+        onclick="openMessage('suenoguajiro')"
+    >
+        SUEÑO GUAJIRO
+    </div>
+
+
+    <div
+        class="word w6"
+        onclick="openMessage('miedo')"
+    >
+        MIEDO
+    </div>
+
+
+    <div
+        class="word w7"
+        onclick="openMessage('tu')"
+    >
+        TÚ
+    </div>
+
+
+    <div
+        class="word w8"
+        onclick="openMessage('yo')"
+    >
+        YO
+    </div>
+
+
+    <div
+        class="word w9"
+        onclick="openMessage('nosotros')"
+    >
+        NOSOTROS
+    </div>
+
+
+    <div
+        class="word w10"
+        onclick="openMessage('aqui')"
+    >
+        AQUÍ
+    </div>
+
+
+    <div
+        class="word w11"
+        onclick="openMessage('siempre')"
+    >
+        SIEMPRE
+    </div>
+
+
+    <div
+        class="word w12"
+        onclick="openMessage('ysi')"
+    >
+        ¿Y SI SÍ…?
+    </div>
+
+
+    <div
+        class="word w13"
+        onclick="openMessage('voz')"
+    >
+        VOZ
+    </div>
+
+
+    <div
+        class="word w14"
+        onclick="openMessage('amo')"
+    >
+        AMO
+    </div>
+
+
+    <!-- TEXTO INFERIOR -->
+
+    <div class="hint">
+        hay cosas que solo se entienden cuando se sienten
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal"
+    id="modal"
+    onclick="closeOutside(event)"
+>
+
+
+    <div class="modal-box">
+
+
+        <div
+            class="modal-title"
+            id="modalTitle"
+        ></div>
+
+
+        <div
+            class="modal-text"
+            id="modalText"
+        ></div>
+
+
+        <button
+            class="close"
+            onclick="closeModal()"
+        >
+            Cerrar
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PANTALLA FINAL
+===================================================== -->
+
+<div
+    class="final-screen"
+    id="finalScreen"
+>
+
+
+    <div class="final-box">
+
+
+        <div class="final-heart">
+            ♥
+        </div>
+
+
+        <div class="final-title">
+            TÚ + YO
+        </div>
+
+
+        <div class="final-text">
+
+            No sé exactamente qué vaya a pasar con nosotros.
+
+            <br><br>
+
+            No sé cuánto tiempo nos tome descubrirlo,
+            ni qué historias nos falten por vivir.
+
+            <br><br>
+
+            Pero después de todo lo que nos ha llevado hasta aquí,
+            hay algo que sí sé:
+
+            <br><br>
+
+            me alegra muchísimo haberte vuelto a encontrar.
+
+            <br><br>
+
+            Y si la vida decidió volver a cruzar nuestros caminos,
+            quiero descubrir contigo hacia dónde nos lleva.
+
+            <br><br>
+
+            Porque quizá…
+
+            <br><br>
+
+            quizá esta vez sí.
+
+        </div>
+
+
+        <button
+            class="final-close"
+            onclick="closeFinal()"
+        >
+            Volver a la galaxia
+        </button>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   UNIVERSO + GALAXIA DE PARTÍCULAS
+===================================================== */
+
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
+
+
+const galaxyCanvas =
+    document.getElementById("galaxy");
+
+const gctx =
+    galaxyCanvas.getContext("2d");
+
+
+let stars = [];
+
+let galaxyParticles = [];
+
+let heartParticles = [];
+
+
+let W =
+    window.innerWidth;
+
+let H =
+    window.innerHeight;
+
+
+
+/* =====================================================
+   RESIZE
+===================================================== */
+
+function resizeCanvas() {
+
+    W =
+        window.innerWidth;
+
+    H =
+        window.innerHeight;
+
+
+    const dpr =
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+
+    canvas.width =
+        W * dpr;
+
+    canvas.height =
+        H * dpr;
+
+
+    galaxyCanvas.width =
+        W * dpr;
+
+    galaxyCanvas.height =
+        H * dpr;
+
+
+    canvas.style.width =
+        W + "px";
+
+    canvas.style.height =
+        H + "px";
+
+
+    galaxyCanvas.style.width =
+        W + "px";
+
+    galaxyCanvas.style.height =
+        H + "px";
+
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+
+    gctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+
+    createStars();
+
+    createGalaxy();
+
+    createHeart();
+
+}
+
+
+
+/* =====================================================
+   ESTRELLAS DEL FONDO
+===================================================== */
+
+function createStars() {
+
+    stars = [];
+
+
+    const amount =
+        Math.min(
+            3200,
+            Math.floor(
+                W * H / 210
+            )
+        );
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        stars.push({
+
+            x:
+                Math.random() * W,
+
+            y:
+                Math.random() * H,
+
+            size:
+
+                Math.random() < .94
+
+                ?
+
+                Math.random() *
+                1.15 +
+                .15
+
+                :
+
+                Math.random() *
+                2.2 +
+                .8,
+
+
+            opacity:
+
+                Math.random() *
+                .7 +
+                .15,
+
+
+            twinkle:
+
+                Math.random() *
+                .018 +
+                .002,
+
+
+            phase:
+
+                Math.random() *
+                Math.PI *
+                2,
+
+
+            pink:
+
+                Math.random() <
+                .17
+
+        });
+
+    }
+
+}
+
+
+
+/* =====================================================
+   GALAXIA ESPIRAL
+===================================================== */
+
+function createGalaxy() {
+
+    galaxyParticles = [];
+
+
+    const cx =
+        W / 2;
+
+
+    const maxRadius =
+        Math.min(
+            W * .72,
+            H * .34
+        );
+
+
+    const arms = 4;
+
+
+    const particlesPerArm =
+        W < 500
+        ? 750
+        : 1050;
+
+
+
+    for (
+        let arm = 0;
+        arm < arms;
+        arm++
+    ) {
+
+
+        for (
+            let i = 0;
+            i < particlesPerArm;
+            i++
+        ) {
+
+
+            const progress =
+                i /
+                particlesPerArm;
+
+
+            const radius =
+
+                18 +
+
+                progress *
+                maxRadius;
+
+
+            const angle =
+
+                progress *
+                Math.PI *
+                3.4
+
+                +
+
+                arm *
+                (
+                    Math.PI *
+                    2 /
+                    arms
+                );
+
+
+            let x =
+
+                Math.cos(angle) *
+                radius;
+
+
+            let y =
+
+                Math.sin(angle) *
+                radius *
+                .43;
+
+
+            x +=
+
+                (
+                    Math.random() -
+                    .5
+                )
+
+                *
+
+                (
+                    8 +
+                    progress *
+                    18
+                );
+
+
+            y +=
+
+                (
+                    Math.random() -
+                    .5
+                )
+
+                *
+
+                (
+                    6 +
+                    progress *
+                    15
+                );
+
+
+            const px =
+                cx + x;
+
+
+            const py =
+                H * .51 + y;
+
+
+            let size;
+
+
+            const random =
+                Math.random();
+
+
+            if (
+                random < .78
+            ) {
+
+                size =
+                    Math.random() *
+                    .8 +
+                    .25;
+
+            }
+
+            else if (
+                random < .96
+            ) {
+
+                size =
+                    Math.random() *
+                    1.4 +
+                    .7;
+
+            }
+
+            else {
+
+                size =
+                    Math.random() *
+                    2.2 +
+                    1.2;
+
+            }
+
+
+            galaxyParticles.push({
+
+                x:
+                    px,
+
+                y:
+                    py,
+
+                baseX:
+                    px,
+
+                baseY:
+                    py,
+
+                size:
+                    size,
+
+                opacity:
+
+                    Math.random() *
+                    .65 +
+                    .25,
+
+                phase:
+
+                    Math.random() *
+                    Math.PI *
+                    2,
+
+                speed:
+
+                    Math.random() *
+                    .018 +
+                    .004,
+
+                pink:
+
+                    Math.random() <
+                    .48
+
+            });
+
+        }
+
+    }
+
+
+
+    /*
+       Polvo adicional alrededor
+       del centro de la galaxia.
+    */
+
+    for (
+        let i = 0;
+        i < 900;
+        i++
+    ) {
+
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const radius =
+
+            Math.pow(
+                Math.random(),
+                .55
+            )
+
+            *
+
+            maxRadius *
+            .72;
+
+
+        const x =
+
+            cx +
+
+            Math.cos(angle) *
+            radius;
+
+
+        const y =
+
+            H * .51 +
+
+            Math.sin(angle) *
+            radius *
+            .35;
+
+
+        galaxyParticles.push({
+
+            x:
+                x,
+
+            y:
+                y,
+
+            baseX:
+                x,
+
+            baseY:
+                y,
+
+            size:
+
+                Math.random() *
+                1.2 +
+                .15,
+
+            opacity:
+
+                Math.random() *
+                .45 +
+                .1,
+
+            phase:
+
+                Math.random() *
+                Math.PI *
+                2,
+
+            speed:
+
+                Math.random() *
+                .015 +
+                .003,
+
+            pink:
+
+                Math.random() <
+                .62
+
+        });
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CORAZÓN HECHO DE ESTRELLAS
+===================================================== */
+
+function createHeart() {
+
+    heartParticles = [];
+
+
+    const cx =
+        W / 2;
+
+
+    const cy =
+        H * .51;
+
+
+    const scale =
+        Math.min(
+            W,
+            H
+        ) *
+        .0062;
+
+
+    const points =
+        700;
+
+
+    /*
+       Fórmula matemática del corazón.
+    */
+
+    for (
+        let i = 0;
+        i < points;
+        i++
+    ) {
+
+
+        const t =
+
+            (
+                Math.PI *
+                2 *
+                i
+            )
+
+            /
+
+            points;
+
+
+        const x =
+
+            16 *
+
+            Math.pow(
+                Math.sin(t),
+                3
+            );
+
+
+        const y =
+
+            13 *
+            Math.cos(t)
+
+            -
+
+            5 *
+            Math.cos(
+                2 * t
+            )
+
+            -
+
+            2 *
+            Math.cos(
+                3 * t
+            )
+
+            -
+
+            Math.cos(
+                4 * t
+            );
+
+
+        const jitter =
+
+            Math.random() *
+            2.5 -
+            1.25;
+
+
+        heartParticles.push({
+
+            x:
+
+                cx +
+                x * scale +
+                jitter,
+
+            y:
+
+                cy -
+                y * scale +
+                jitter,
+
+            size:
+
+                Math.random() *
+                1.6 +
+                .45,
+
+            opacity:
+
+                Math.random() *
+                .7 +
+                .25,
+
+            phase:
+
+                Math.random() *
+                Math.PI *
+                2,
+
+            speed:
+
+                Math.random() *
+                .025 +
+                .008,
+
+            pink:
+                true
+
+        });
+
+    }
+
+
+    /*
+       Segunda capa para darle
+       más brillo y volumen.
+    */
+
+    for (
+        let i = 0;
+        i < 220;
+        i++
+    ) {
+
+
+        const t =
+
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const x =
+
+            16 *
+
+            Math.pow(
+                Math.sin(t),
+                3
+            );
+
+
+        const y =
+
+            13 *
+            Math.cos(t)
+
+            -
+
+            5 *
+            Math.cos(
+                2 * t
+            )
+
+            -
+
+            2 *
+            Math.cos(
+                3 * t
+            )
+
+            -
+
+            Math.cos(
+                4 * t
+            );
+
+
+        const spread =
+
+            Math.random() *
+            7 -
+            3.5;
+
+
+        heartParticles.push({
+
+            x:
+
+                cx +
+                x * scale +
+                spread,
+
+            y:
+
+                cy -
+                y * scale +
+                spread,
+
+            size:
+
+                Math.random() *
+                2.1 +
+                .5,
+
+            opacity:
+
+                Math.random() *
+                .7 +
+                .25,
+
+            phase:
+
+                Math.random() *
+                Math.PI *
+                2,
+
+            speed:
+
+                Math.random() *
+                .02 +
+                .008,
+
+            pink:
+                true
+
+        });
+
+    }
+
+}
+
+
+
+/* =====================================================
+   DIBUJAR ESTRELLAS
+===================================================== */
+
+function drawStars(time) {
+
+    ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    for (
+        const star of stars
+    ) {
+
+
+        const pulse =
+
+            Math.sin(
+                time *
+                star.twinkle +
+                star.phase
+            );
+
+
+        const alpha =
+
+            Math.max(
+                .04,
+                star.opacity +
+                pulse * .18
+            );
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        if (
+            star.pink
+        ) {
+
+            ctx.fillStyle =
+
+                `rgba(
+                    255,
+                    150,
+                    210,
+                    ${alpha}
+                )`;
+
+        }
+
+        else {
+
+            ctx.fillStyle =
+
+                `rgba(
+                    255,
+                    255,
+                    255,
+                    ${alpha}
+                )`;
+
+        }
+
+
+        ctx.fill();
+
+
+        /*
+           Destello para estrellas grandes.
+        */
+
+        if (
+            star.size > 1.7
+        ) {
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+                star.x -
+                star.size * 3,
+                star.y
+            );
+
+
+            ctx.lineTo(
+                star.x +
+                star.size * 3,
+                star.y
+            );
+
+
+            ctx.moveTo(
+                star.x,
+                star.y -
+                star.size * 3
+            );
+
+
+            ctx.lineTo(
+                star.x,
+                star.y +
+                star.size * 3
+            );
+
+
+            ctx.strokeStyle =
+
+                `rgba(
+                    255,
+                    220,
+                    245,
+                    ${alpha * .45}
+                )`;
+
+
+            ctx.lineWidth =
+                .5;
+
+
+            ctx.stroke();
+
+        }
+
+    }
+
+}
+
+
+
+/* =====================================================
+   DIBUJAR GALAXIA
+===================================================== */
+
+function drawGalaxy(time) {
+
+    gctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    /*
+       Brillo general de la galaxia.
+    */
+
+    const glow =
+
+        gctx.createRadialGradient(
+
+            W / 2,
+            H * .51,
+            10,
+
+            W / 2,
+            H * .51,
+
+            Math.min(
+                W,
+                H
+            ) * .42
+
+        );
+
+
+    glow.addColorStop(
+        0,
+        "rgba(255,40,130,.16)"
+    );
+
+
+    glow.addColorStop(
+        .3,
+        "rgba(255,80,180,.08)"
+    );
+
+
+    glow.addColorStop(
+        1,
+        "rgba(255,0,100,0)"
+    );
+
+
+    gctx.fillStyle =
+        glow;
+
+
+    gctx.fillRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    /*
+       PARTÍCULAS DE LA GALAXIA
+    */
+
+    for (
+        const p of galaxyParticles
+    ) {
+
+
+        const pulse =
+
+            Math.sin(
+                time *
+                p.speed +
+                p.phase
+            );
+
+
+        const alpha =
+
+            Math.max(
+                .04,
+                p.opacity +
+                pulse * .16
+            );
+
+
+        /*
+           Movimiento muy suave.
+        */
+
+        const driftX =
+
+            Math.sin(
+                time * .00035 +
+                p.phase
+            ) * 1.4;
+
+
+        const driftY =
+
+            Math.cos(
+                time * .0003 +
+                p.phase
+            ) * .8;
+
+
+        const x =
+            p.x + driftX;
+
+
+        const y =
+            p.y + driftY;
+
+
+        gctx.beginPath();
+
+
+        gctx.arc(
+            x,
+            y,
+            p.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        if (
+            p.pink
+        ) {
+
+            gctx.fillStyle =
+
+                `rgba(
+                    255,
+                    155,
+                    220,
+                    ${alpha}
+                )`;
+
+        }
+
+        else {
+
+            gctx.fillStyle =
+
+                `rgba(
+                    255,
+                    245,
+                    255,
+                    ${alpha}
+                )`;
+
+        }
+
+
+        gctx.fill();
+
+
+        /*
+           Glow en partículas grandes.
+        */
+
+        if (
+            p.size > 1.5
+        ) {
+
+            gctx.shadowBlur =
+                8;
+
+            gctx.shadowColor =
+
+                p.pink
+
+                ?
+
+                "rgba(255,50,160,.8)"
+
+                :
+
+                "rgba(255,255,255,.65)";
+
+
+            gctx.fill();
+
+
+            gctx.shadowBlur =
+                0;
+
+        }
+
+    }
+
+
+
+    /*
+       CORAZÓN
+    */
+
+    for (
+        const p of heartParticles
+    ) {
+
+
+        const pulse =
+
+            Math.sin(
+                time *
+                p.speed +
+                p.phase
+            );
+
+
+        const alpha =
+
+            Math.max(
+                .12,
+                p.opacity +
+                pulse * .2
+            );
+
+
+        const x =
+            p.x;
+
+
+        const y =
+            p.y;
+
+
+        if (
+            p.size > 1.5
+        ) {
+
+            gctx.shadowBlur =
+                12;
+
+            gctx.shadowColor =
+                "rgba(255,20,110,.95)";
+
+        }
+
+
+        gctx.beginPath();
+
+
+        gctx.arc(
+            x,
+            y,
+            p.size,
+            0,
+            Math.PI * 2
+        );
+
+
+        gctx.fillStyle =
+
+            `rgba(
+                255,
+                55,
+                145,
+                ${alpha}
+            )`;
+
+
+        gctx.fill();
+
+
+        gctx.shadowBlur =
+            0;
+
+    }
+
+
+
+    /*
+       Brillo suave detrás del corazón.
+    */
+
+    const heartGlow =
+
+        gctx.createRadialGradient(
+
+            W / 2,
+            H * .51,
+            5,
+
+            W / 2,
+            H * .51,
+            100
+
+        );
+
+
+    heartGlow.addColorStop(
+        0,
+        "rgba(255,30,120,.18)"
+    );
+
+
+    heartGlow.addColorStop(
+        .45,
+        "rgba(255,20,100,.07)"
+    );
+
+
+    heartGlow.addColorStop(
+        1,
+        "rgba(255,0,100,0)"
+    );
+
+
+    gctx.fillStyle =
+        heartGlow;
+
+
+    gctx.beginPath();
+
+
+    gctx.arc(
+        W / 2,
+        H * .51,
+        100,
+        0,
+        Math.PI * 2
+    );
+
+
+    gctx.fill();
+
+}
+
+
+
+/* =====================================================
+   ANIMACIÓN
+===================================================== */
+
+function animateUniverse(time) {
+
+    drawStars(time);
+
+    drawGalaxy(time);
+
+    requestAnimationFrame(
+        animateUniverse
+    );
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+resizeCanvas();
+
+
+requestAnimationFrame(
+    animateUniverse
+);
+
+
+
+/* =====================================================
+   MENSAJES
+===================================================== */
+
+const messages = {
+
+
+casualidad: {
+
+title: "CASUALIDAD",
+
+text: `Ya nos conocíamos… aunque tú probablemente ni te acuerdes.
+
+Y después de tantos años, nos perdimos por completo.
+
+Qué curioso que, entre tantas personas y tantos caminos, hayas decidido mandarme aquel mensaje por Instagram.
+
+Porque si no lo hubieras hecho, probablemente jamás habríamos vuelto a coincidir.
+
+Y pensar que todo pudo quedarse en un “alguna vez lo conocí”…
+pero aquí estamos.`
+
+},
+
+
+destino: {
+
+title: "DESTINO",
+
+text: `No sé si exista el destino como tal, pero quiero creer que sí.
+
+Siempre he pensado que las cosas pasan por algo, incluso aquellas que en su momento no entendemos.
+
+Tal vez por eso nos perdimos durante tantos años.
+Tal vez necesitábamos vivir otras cosas antes de volver a encontrarnos.
+
+O tal vez simplemente era cuestión de tiempo.
+
+No sé cuál sea la razón…
+pero me gusta pensar que volver a encontrarte tenía que pasar.`
+
+},
+
+
+nervios: {
+
+title: "NERVIOS",
+
+text: `Es curioso…
+volver a hablar contigo me pone nerviosa.
+
+Y ni siquiera estás aquí.
+
+Estás lejos y aun así consigues hacerme sentir esas maripositas que probablemente voy a sentir multiplicadas cuando por fin vuelva a verte.
+
+No sé qué va a pasar cuando estemos frente a frente otra vez.
+
+Probablemente me quede sin saber qué decir.
+Probablemente me den todavía más nervios.
+
+Pero, sinceramente…
+tengo muchas ganas de descubrirlo.`
+
+},
+
+
+casual: {
+
+title: "CASUAL",
+
+text: `Lo más curioso es que alguna vez me gustaste y no hice nada.
+
+Ni siquiera sé exactamente por qué.
+Quizá no era el momento.
+Quizá simplemente no sabía qué hacer con lo que sentía.
+
+Pero ahora sí sé algo:
+esta vez quiero permitirme ver qué pasa.
+
+Sin saber exactamente dónde nos va a llevar, pero esperando de corazón que sea a un lugar bonito.`
+
+},
+
+
+suenoguajiro: {
+
+title: "SUEÑO GUAJIRO",
+
+text: `Hay una canción que inevitablemente me hace pensar en esto.
+
+Porque hay una parte de mí que tiene miedo de estar imaginando demasiado, de ilusionarme y terminar convirtiendo todo esto en un sueño guajiro.
+
+Pero también hay otra parte de mí que piensa…
+
+¿Y si esta vez no es un sueño?
+
+¿Y si todo esto que estamos comenzando sí puede convertirse en algo bonito?
+
+No sé qué vaya a pasar.
+
+Y quizá precisamente por eso quiero vivirlo.`
+
+},
+
+
+miedo: {
+
+title: "MIEDO",
+
+text: `Tengo miedo.
+
+De que las cosas no salgan como las imagino.
+De emocionarme demasiado.
+De esperar algo que quizá nunca llegue.
+
+Pero también tengo miedo de dejar pasar algo bonito simplemente por miedo a que pueda salir mal.
+
+Así que supongo que estoy aprendiendo a arriesgarme un poquito.
+
+Y tú eres una de esas razones.`
+
+},
+
+
+tu: {
+
+title: "TÚ",
+
+text: `Entre tantas personas, tantos lugares y tantos años…
+
+terminaste siendo tú.
+
+Y no sé exactamente en qué momento dejaste de ser solamente alguien que conocía para convertirte en alguien que quiero tener cerca.`
+
+},
+
+
+yo: {
+
+title: "YO",
+
+text: `Y aquí estoy yo…
+
+intentando disimular los nervios, pensando demasiado qué responderte y probablemente sonrojándome cada vez que me dices algo bonito.
+
+A veces no sé qué decirte, pero nunca confundas mi silencio con falta de emoción.
+
+La verdad es que haces que me ponga demasiado nerviosa.`
+
+},
+
+
+nosotros: {
+
+title: "NOSOTROS",
+
+text: `No sé todavía qué significa “nosotros”.
+
+Quizá todavía estamos descubriéndolo.
+
+Pero me gusta la idea de que pueda existir un nosotros que todavía no conocemos.
+
+Uno que apenas está comenzando a escribirse.`
+
+},
+
+
+aqui: {
+
+title: "AQUÍ",
+
+text: `Después de tantos años, tantas vueltas y tantos caminos diferentes…
+
+estamos aquí.
+
+Hablándonos otra vez.
+Conociéndonos de nuevo.
+
+Y aunque todavía haya distancia entre nosotros, me gusta este pequeño lugar que estamos construyendo.`
+
+},
+
+
+siempre: {
+
+title: "SIEMPRE",
+
+text: `No puedo prometerte un siempre.
+
+Porque todavía no sé qué nos espera.
+
+Pero sí puedo decirte que hay momentos que quisiera guardar para siempre.
+
+Y este…
+
+este momento en el que estamos volviendo a encontrarnos, es uno de ellos.`
+
+},
+
+
+ysi: {
+
+title: "¿Y SI SÍ…?",
+
+text: `¿Y si sí?
+
+¿Y si esta vez las cosas sí salen bien?
+¿Y si todos estos años tenían que pasar para que pudiéramos encontrarnos otra vez?
+¿Y si esto que comenzó casi por casualidad termina siendo algo que ninguno de los dos esperaba?
+
+No sé.
+
+Pero me gusta hacerme la pregunta.
+
+¿Y si sí…?`
+
+},
+
+
+voz: {
+
+title: "VOZ",
+
+text: `Hay algo que quizá no sepas…
+
+me encanta escucharte.
+
+Tu voz tiene una forma muy rara de hacerme sentir cerca de ti incluso cuando estás lejos.
+
+Y quizá por eso me gusta tanto cuando me mandas un mensaje, cuando escucho tu voz o cuando me dices algo bonito.
+
+Aunque muchas veces me quede sin saber qué responderte por los nervios…
+
+créeme que por dentro estoy sintiendo muchísimo más de lo que alcanzo a decir.`
+
+},
+
+
+amo: {
+
+title: "AMO",
+
+text: `Amo escucharte.
+
+Amo cuando me llega un mensaje tuyo y automáticamente quiero saber qué me vas a decir.
+
+Amo las palabras bonitas que tienes conmigo, incluso cuando me dejas sin saber cómo responderte.
+
+Y quizá no siempre encuentre las palabras correctas para decírtelo…
+
+pero quiero decirte algo que sí tengo muy claro:
+
+te quiero muchísimo.
+
+Más de lo que probablemente me atrevo a decirte.`
+
+}
+
+};
+
+
+
+/* =====================================================
+   ABRIR MENSAJE
+===================================================== */
+
+function openMessage(key) {
+
+    const data =
+        messages[key];
+
+
+    document
+        .getElementById("modalTitle")
+        .textContent =
+        data.title;
+
+
+    document
+        .getElementById("modalText")
+        .textContent =
+        data.text;
+
+
+    document
+        .getElementById("modal")
+        .classList
+        .add("show");
+
+}
+
+
+
+/* =====================================================
+   CERRAR MODAL
+===================================================== */
+
+function closeModal() {
+
+    document
+        .getElementById("modal")
+        .classList
+        .remove("show");
+
+}
+
+
+
+/* =====================================================
+   CERRAR AL TOCAR AFUERA
+===================================================== */
+
+function closeOutside(event) {
+
+    if (
+        event.target.id ===
+        "modal"
+    ) {
+
+        closeModal();
+
+    }
+
+}
+
+
+
+/* =====================================================
+   PANTALLA FINAL
+===================================================== */
+
+function showFinal() {
+
+    document
+        .getElementById("finalScreen")
+        .classList
+        .add("show");
+
+}
+
+
+
+/* =====================================================
+   CERRAR PANTALLA FINAL
+===================================================== */
+
+function closeFinal() {
+
+    document
+        .getElementById("finalScreen")
+        .classList
+        .remove("show");
+
+}
+
+</script>
+
+</body>
+
+</html>
